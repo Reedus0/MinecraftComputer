@@ -1,8 +1,9 @@
-ldi r1, 4
+ldi r1, 8
 ldi r2, 2
 label:
 sub r1, r2, r1
-jiz 5
+jiz end
 jmp label
+end:
 str r1, 0
 hlt
