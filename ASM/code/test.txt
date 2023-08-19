@@ -1,0 +1,7 @@
+ldi r1, 10
+ldi r2, 2
+sub r1, r2, r1
+jiz 5
+jmp 2
+str r1, 0
+hlt
