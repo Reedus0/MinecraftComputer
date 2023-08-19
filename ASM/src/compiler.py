@@ -149,10 +149,11 @@ def calculate_labels(assembly_lines):
             labels[assembly_lines[line][:-1]] = line
             del assembly_lines[line]
             max_count -= 1
-        for label in labels:
+        line += 1
+    for line in range(len(assembly_lines)):
+         for label in labels:
             if (label in assembly_lines[line]):
                 assembly_lines[line] = assembly_lines[line].replace(label, str(labels[label]))
-        line += 1
     return assembly_lines
 
 
