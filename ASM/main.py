@@ -13,5 +13,5 @@ if __name__ == '__main__':
         content = f.read()
         binary_array = compile(content)
         schem = parse(binary_array)
-        schem.save(schematics_path, 'asm', mcschematic.Version.JE_1_20_1)
+        schem.save(schematics_path, os.path.basename(f.name).split('.')[0], mcschematic.Version.JE_1_20_1)
     
