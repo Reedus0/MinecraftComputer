@@ -140,9 +140,27 @@ def compile_line(line):
     return ('{:016b}'.format(result))
 
 
+def calculate_labels(assembly_lines):
+    labels = {}
+    line = 0
+    max_count = len(assembly_lines)
+    while (line != max_count):
+        if (assembly_lines[line][-1] == ':'):
+            labels[assembly_lines[line][:-1]] = line
+            del assembly_lines[line]
+            max_count -= 1
+        for label in labels:
+            if (label in assembly_lines[line]):
+                assembly_lines[line] = assembly_lines[line].replace(label, str(labels[label]))
+        line += 1
+    return assembly_lines
+
+
 def compile(assembly):
     machine_code_array = []
     assembly_lines = assembly.split('\n')
+    assembly_lines = calculate_labels(assembly_lines)
+
     if (len(assembly_lines) > 32):
         raise ValueError(
             "Too large assembly file, maximum is 32 lines, but got " + str(len(assembly_lines)))
