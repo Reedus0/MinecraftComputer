@@ -70,6 +70,21 @@ def parse_operands(operands, map):
     return result
 
 
+def check_operation(current_line, operands, operations_map):
+    print(operands)
+    print(operations_map)
+
+    if (len(operands) != len(operations_map)):
+            raise ValueError(
+                current_line + " | Incorrect operands count, excepted " + str(len(operations_map)) + ", got " + str(len(operands)))
+    check_result = check_operands(operands, operations_map)
+    if (check_result != ''):
+        raise ValueError(current_line + " | Incorrect operand: " + check_result)
+
+    operands_values = parse_operands(operands, operations_map)
+
+    return operands_values
+
 def compile_line(line):
     result = 0b0
     operation = line[:3].upper()
@@ -82,63 +97,36 @@ def compile_line(line):
     except KeyError:
         raise ValueError(line + " |  Incorrect operation: " + operation)
 
-    result = result | operations[operation]
+    current_operation = operations[operation]
 
-    if (operations[operation] in alu_operations):
-        if (len(operands) != 3):
-            raise ValueError(
-                line + " | Incorrect operands, excepted 3, got " + str(len(operands)))
-        check_result = check_operands(operands, alu_map)
-        if (check_result != ''):
-            raise ValueError(line + " | Incorrect operand: " + check_result)
+    result = result | current_operation
 
-        operands_values = parse_operands(operands, alu_map)
+    if (current_operation in alu_operations):
+        operands_values = check_operation(line, operands, alu_map)
         result = result | operands_values[0] << 5 | operands_values[1] << 10 | operands_values[2] << 13
 
-    elif (operations[operation] in immediate_operations):
-        if (len(operands) != 2):
-            raise ValueError(
-                line + " | Incorrect operands, excepted 2, got " + str(len(operands)))
-        check_result = check_operands(operands, immediate_map)
-        if (check_result != ''):
-            raise ValueError(line + " | Incorrect operand: " + check_result)
-
-        operands_values = parse_operands(operands, immediate_map)
+    elif (current_operation in immediate_operations):
+        operands_values = check_operation(line, operands, immediate_map)
         if (operands_values[1] > 255):
             raise ValueError(
                 line + " | Incorrect value, should be less than 256: " + str(operands_values[1]))
         result = result | operands_values[0] << 5 | operands_values[1] << 8
 
-    elif (operations[operation] in memory_operations):
-        if (len(operands) != 2):
-            raise ValueError(
-                line + " | Incorrect operands, excepted 2, got " + str(len(operands)))
-        check_result = check_operands(operands, memory_map)
-        if (check_result != ''):
-            raise ValueError(line + " | Incorrect operand: " + check_result)
-
-        operands_values = parse_operands(operands, memory_map)
+    elif (current_operation in memory_operations):
+        operands_values = check_operation(line, operands, memory_map)
         if (operands_values[1] > 63):
             raise ValueError(
                 line + " | Incorrect value, should be less than 64: " + str(operands_values[1]))
         result = result | operands_values[0] << 5 | operands_values[1] << 10
 
-    elif (operations[operation] in jump_operations):
-        if (len(operands) != 1):
-            raise ValueError(
-                line + " | Incorrect operands, excepted 1, got " + str(len(operands)))
-        check_result = check_operands(operands, jump_map)
-        if (check_result != ''):
-            raise ValueError(line + " | Incorrect operand: " + check_result)
-
-        operands_values = parse_operands(operands, jump_map)
+    elif (current_operation in jump_operations):
+        operands_values = check_operation(line, operands, jump_map)
         if (operands_values[0] > 31):
             raise ValueError(
                 line + " | Incorrect value, should be less than 32: " + str(operands_values[0]))
         result = result | operands_values[0] << 11
 
     return ('{:016b}'.format(result))
-
 
 def calculate_labels(assembly_lines):
     labels = {}

@@ -1,9 +1,5 @@
-ldi r1, 8
-ldi r2, 2
-label:
-sub r1, r2, r1
-jiz end
-jmp label
-end:
-str r1, 0
+ldi r1, 12
+ldi r2, 8
+add r1, r2, r1
+str r1, as
 hlt
