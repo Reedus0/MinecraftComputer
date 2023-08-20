@@ -1,7 +1,7 @@
 # Computer specs
 
 * 8 general purpose registers
-* 0.25 HZ clock
+* 0.2 HZ clock
 * ALU capable of adding and subtracting
 * 64 bytes of RAM
 * 64 bytes of ROM
