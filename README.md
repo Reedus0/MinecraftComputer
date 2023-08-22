@@ -1,3 +1,7 @@
+# MinecraftComputer
+
+I've build 8-bit computer in minecraft (1.20.1) and uploaded schematic. Also i've made custom assembly language to programm this computer 
+
 # Computer specs
 
 * 8 general purpose registers
