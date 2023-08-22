@@ -71,9 +71,6 @@ def parse_operands(operands, map):
 
 
 def check_operation(current_line, operands, operations_map):
-    print(operands)
-    print(operations_map)
-
     if (len(operands) != len(operations_map)):
             raise ValueError(
                 current_line + " | Incorrect operands count, excepted " + str(len(operations_map)) + ", got " + str(len(operands)))
