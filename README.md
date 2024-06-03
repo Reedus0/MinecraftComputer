@@ -41,3 +41,4 @@ Set PC to address if result of previous ALU operation was zero
 5. Paste code in world(use mark /gmask redstone_block,air)
 6. Go down, to clock, press the lever and start programm
 7. After finishing you can reset programm, using reset button near the clock
+8. Before pasting new programm stop clock with lever, after pasting press reset button
