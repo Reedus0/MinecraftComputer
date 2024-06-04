@@ -1,9 +1,5 @@
-ldi r1, 255
-ldi r2, 1
-loop:
-sub r1, r2, r1
-jiz end
-jmp loop
-end:
+ldi r1, 5
+ldi r2, 28
+add r1, r2, r1
 str r1, 0
 hlt

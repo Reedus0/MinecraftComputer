@@ -38,6 +38,6 @@ Set PC to address if result of previous ALU operation was zero
 2. Stand at code paste block
 3. Configure your world edit folder
 4. Compile code using cmd (python main.py assembly.txt)
-5. Paste code in world(use mark /gmask redstone_block,air)
+5. Paste code in world(use mark /gmask redstone_block,air, then use command /schem load assembly_name.schem)
 6. Go down, to clock, press the lever and start programm
 7. After finishing you can reset programm, using reset button near the clock
